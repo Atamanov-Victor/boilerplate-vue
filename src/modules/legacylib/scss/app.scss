@@ -1,0 +1,92 @@
+/* Reset Border Box */
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  font-weight: 400;
+}
+
+/////////////////////////////////////////////
+// Configs
+/////////////////////////////////////////////
+@import './configs.scss';
+
+/////////////////////////////////////////////
+// Mixin Create Class
+/////////////////////////////////////////////
+@import './create.scss';
+
+// Width
+@include createClass($screens, 'w', '-ab', 1%, 100, 'width');
+@include createClass($screens, 'w', '', 0.2vw, 150, 'width');
+
+// Height
+@include createClass($screens, 'h', '-ab', 1%, 100, 'height');
+@include createClass($screens, 'h', '', 0.2vw, 100, 'height');
+
+// Position
+@include createCoordClass($screens, '', '-ab', 1%, 1%, 100, '');
+@include createCoordClass($screens, '', '', 0.2vw, 0.2vw, 100, '');
+@include createValueClass($screens, 'p', 'position', ('a': absolute, 'r': relative, 'f': fixed, 's': sticky));
+
+// Padding
+@include createCoordClass($screens, 'p', '-ab', 1%, 1%, 100, 'padding');
+@include createCoordClass($screens, 'p', '', 0.2vw, 0.2vw, 100, 'padding');
+
+// Margin
+@include createCoordClass($screens, 'm', '-ab', 1%, 1%, 100, 'margin');
+@include createCoordClass($screens, 'm', '', 0.2vw, 0.2vw, 100, 'margin');
+
+// Font
+@include createClass($screens, 'fs', '-ab', 5%, 100, 'font-size'); // Size Absolute
+@include createClass($screens, 'fs', '', 0.09vw, 200, 'font-size'); // Size Fixed
+@include createClass($screens, 'lh', '-ab', 10%, 100, 'line-height'); // Line Height Absolute
+@include createClass($screens, 'lh', '', 0.2vw, 100, 'line-height'); // Line Height Fixed
+@include createClass($screens, 'fw', '', 100, 9, 'font-weight'); // Weight
+@include createClass($screens, 'ls', '', 0.01vw, 20, 'letter-spacing'); // Letter Spacing
+@include createValueClass($screens, 'ta', 'text-align', ('c': center, 'l': left, 'r': right, 'j': justify)); // Align
+@include createValueClass($screens, 'fs', 'font-style', ('i': italic, 'n': normal)); // Style
+@include createValueClass($screens, 'td', 'text-decoration', ('th': line-through, 'o': overline, 'u': underline, 'n': none)); // Decoration
+@include createValueClass($screens, 'tt', 'text-transform', ('c': capitalize, 'l': lowercase, 'u': uppercase, 'n': none)); // Transform
+@include createColorClass($screens, 'f', 'color', $pallete); // Color
+
+// Flex
+@include createValueClass($screens, 'fd', 'flex-direction', ('c': column, 'cr': column-reverse, 'r': row, 'rr': row-reverse)); // Direction
+@include createValueClass($screens, 'fd', 'display', ('c': flex, 'cr': flex, 'r': flex, 'rr': flex));
+@include createValueClass($screens, 'jc', 'justify-content', ('l': flex-start, 'c': center, 'r': flex-end, 'b': space-between, 'a': space-around)); // Justify
+@include createValueClass($screens, 'ai', 'align-items', ('t': flex-start, 'c': center, 'b': flex-end, 's': stretch)); // Align Items
+@include createValueClass($screens, 'ji', 'justify-items', ('t': flex-start, 'c': center, 'b': flex-end, 's': stretch)); // Justify Items
+@include createValueClass($screens, 'fw', 'flex-wrap', ('w': wrap, 'nw': nowrap, 'wr': wrap-reverse)); // Wrap
+@include createClass($screens, 'fsh', '', 1, 9, 'flex-shrink'); // Shrink
+
+// Display
+@include createValueClass($screens, 'd', 'display', ('n': none, 'b': block, 'i': inline, 'ib': inline-block, 'ri': run-in, 'f': flex));
+@include createColorClass($screens, 'bg', 'background', $pallete); // Background Color
+
+// Border
+@include createCoordClass($screens, 'br', '-ab', 0.1%, 0.1%, 50, 'border', '-width');
+@include createCoordClass($screens, 'br', '', 0.02vw, 0.02vw, 50, 'border', '-width');
+@include createValueClass($screens, 'brs', 'border', ('s': solid, 'ds': dashed, 'dt': dotted), ('': '', 'l': -left, 't': -top, 'r': -right, 'b': -bottom), '-style');
+@include createColorClass($screens, 'br', 'border-color', $pallete); // Color
+
+// Index
+@include createClass($screens, 'z', '', 1, 20, 'z-index');
+
+// Radius
+@include createCoordClass($screens, 'rad', '', 0.2vw, 0.2vw, 70, 'border-radius');
+
+// Opacity
+@include createClass($screens, 'o', '', 0.1, 10, 'opacity');
+
+// Cursor
+@include createValueClass($screens, 'cr', 'cursor', ('p': pointer, 'n': none, 'd': default));
+
+// Overflow
+@include createValueClass($screens, 'of', 'overflow', ('h': hidden, 'a': auto, 's': scroll));

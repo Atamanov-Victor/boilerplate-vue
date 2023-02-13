@@ -1,0 +1,121 @@
+/////////////////////////////////////////////
+// Create Class
+/////////////////////////////////////////////
+@mixin createClass ($screens: (), $class: '', $absolute: '', $size: 1, $counts: 1, $attribute: '', $type: '') {
+  @each $pre, $screen in $screens {
+    @media (min-width: $screen) {
+      @for $count from 0 to ($counts + 1) {
+        $countSize: $count * $size;
+        @if (($count * $size) == 33%) {
+          $countSize: 33.33%;
+        }
+        .#{$class}#{$absolute}-#{$count}#{$pre}#{$type} { #{$attribute}: $countSize; }
+        @if ($countSize == 0) {
+          $countSize: 0.1;
+        }
+      }
+      @if ($absolute == '') {
+        .#{$class}-a#{$pre}#{$type} { #{$attribute}: auto; }
+      }
+    }
+  }
+}
+
+/////////////////////////////////////////////
+// Create Mix Class
+/////////////////////////////////////////////
+// Default Data
+$sizes: ('l': 'left', 't': 'top', 'r': 'right', 'b': 'bottom');
+// Create
+@mixin createCoordClass ($screens: (), $class: '', $absolute: '', $sizeH: 1, $sizeV: 1, $counts: 1, $attribute: '', $end: '') {
+  $size: $sizeV;
+  @each $pre, $screen in $screens {
+    @media (min-width: $screen) {
+      @for $count from 0 to ($counts + 1) {
+        @if ($attribute != '') {
+          @if ($end == '') {
+            .#{$class}#{$absolute}-#{$count}#{$pre} { #{$attribute}: $sizeH * $count; }
+          } @else {
+            .#{$class}#{$absolute}-#{$count}#{$pre} { #{$attribute}#{$end}: $sizeH * $count; }
+          }
+          .#{$class}y#{$absolute}-#{$count}#{$pre} { #{$attribute}-top#{$end}: $sizeH * $count; #{$attribute}-bottom#{$end}: $sizeH * $count; }
+          .#{$class}x#{$absolute}-#{$count}#{$pre} { #{$attribute}-left#{$end}: $sizeV * $count; #{$attribute}-right#{$end}: $sizeV * $count; }
+        }
+        @each $sizeKey, $sizeValue in $sizes {
+          @if ($sizeKey == 'l' or $sizeKey == 'r') {
+            $size: $sizeH;
+          } @else {
+            $size: $sizeV;
+          }
+          @if ($class == '') {
+            @if ($absolute == '') {
+              .#{$sizeKey}-#{$count}#{$pre} { #{$attribute}#{$sizeValue}: $size * $count; }
+            } @else {
+              .#{$sizeKey}#{$absolute}-#{$count}#{$pre} { #{$attribute}#{$sizeValue}: $size * $count; }
+            }
+          } @else {
+            @if ($absolute != '') {
+              .#{$class}#{$sizeKey}#{$absolute}-#{$count}#{$pre} { #{$attribute}-#{$sizeValue}#{$end}: $size * $count; }
+            } @else {
+              .#{$class}#{$sizeKey}-#{$count}#{$pre} { #{$attribute}-#{$sizeValue}#{$end}: $size * $count; }
+            }
+          }
+        }
+      }
+      @each $sizeKey, $sizeValue in $sizes {
+        .#{$sizeKey}-a#{$pre} { #{$sizeValue}: auto };
+      }
+    }
+  }
+}
+
+/////////////////////////////////////////////
+// Create Custom
+/////////////////////////////////////////////
+@mixin createValueClass ($screens: (), $class: '', $attribute: '', $values: (), $sub: '', $end: '') {
+  @each $pre, $screen in $screens {
+    @media (min-width: $screen) {
+      @if ($sub == '') {
+        @each $key, $value in $values {
+          .#{$class}-#{$key}#{$pre} { #{$attribute}: $value; }
+        }
+      } @else {
+        @each $subKey, $subValue in $sub {
+          @each $key, $value in $values {
+            .#{$class}#{$subKey}-#{$key}#{$pre} { #{$attribute}#{$subValue}#{$end}: $value; }
+          }
+        }
+      }
+    }
+  }
+}
+
+/////////////////////////////////////////////
+// Create Color
+/////////////////////////////////////////////
+@mixin createColorClass ($screens: (), $class: '', $attribute: '', $colors: (), $pseudo: '') {
+  @each $pre, $screen in $screens {
+    @media (min-width: $screen) {
+      @each $colorName, $colorValues in $colors {
+        @each $value in $colorValues {
+          $i: index($colorValues, $value);
+          @if ($i * 100 > 900) {
+            .#{$class}-#{$colorName}-A#{($i * 100) - 900}#{$pre}#{$pseudo} { #{$attribute}: $value; }
+            @if ($pseudo == '') {
+              :root {
+                --#{$colorName}-A#{$i * 100}: #{$value};
+              }
+            }
+          } @else {
+            .#{$class}-#{$colorName}-#{$i * 100}#{$pre}#{$pseudo} { #{$attribute}: $value; }
+            @if ($pseudo == '') {
+              :root {
+                --#{$colorName}-#{$i * 100}: #{$value};
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
