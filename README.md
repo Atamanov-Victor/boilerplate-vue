@@ -5,4 +5,5 @@ Ready for development VUE Boilerplate.
 2. Vue framework
 3. Fetch plugin accessible with nuxt.$fetch
 4. Pinia store
-5. CSS Framework 
+5. CSS Framework
+6. SCSS as main CSS pre-processor
